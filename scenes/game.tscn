@@ -25,6 +25,7 @@ detail_albedo = ExtResource("3_f4bto")
 [node name="Node3D" type="Node3D"]
 
 [node name="planet" type="CSGMesh3D" parent="."]
+transform = Transform3D(-0.642788, 0, -0.766045, 0, 1, 0, 0.766045, 0, -0.642788, 0, 0, 0)
 mesh = SubResource("SphereMesh_682lr")
 material = SubResource("StandardMaterial3D_y0ylr")
 
