@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bbiw1qok7vvyu"
-path.s3tc="res://.godot/imported/earthspec1k.jpg-41bedd7ca20c9d533ade400752c7b061.s3tc.ctex"
+uid="uid://bhhvl1w7n67ff"
+path.s3tc="res://.godot/imported/earthcloudmaptrans-inverted.png-b32c6e6760d32d61241b82ef36baecc0.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://textures/earth/earthspec1k.jpg"
-dest_files=["res://.godot/imported/earthspec1k.jpg-41bedd7ca20c9d533ade400752c7b061.s3tc.ctex"]
+source_file="res://textures/earth/earthcloudmaptrans-inverted.png"
+dest_files=["res://.godot/imported/earthcloudmaptrans-inverted.png-b32c6e6760d32d61241b82ef36baecc0.s3tc.ctex"]
 
 [params]
 
