@@ -1,0 +1,27 @@
+[gd_scene load_steps=8 format=3 uid="uid://h05gcqjgx5mf"]
+
+[ext_resource type="Texture2D" uid="uid://bhof4xyfj8w0w" path="res://textures/earth/earthmap1k.jpg" id="1_78g6q"]
+[ext_resource type="Texture2D" uid="uid://bbiw1qok7vvyu" path="res://textures/earth/earthspec1k.jpg" id="2_rt7gu"]
+[ext_resource type="Texture2D" uid="uid://cixuwxu1mm2q5" path="res://textures/earth/earthcloudmap.jpg" id="3_17wux"]
+[ext_resource type="Texture2D" uid="uid://bhhvl1w7n67ff" path="res://textures/earth/earthcloudmaptrans-inverted.png" id="4_hysmj"]
+[ext_resource type="Texture2D" uid="uid://bwhqs8qakr3ob" path="res://textures/earth/earthbump1k.jpg" id="5_6v3hw"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_682lr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y0ylr"]
+albedo_texture = ExtResource("1_78g6q")
+normal_scale = 0.1
+normal_texture = ExtResource("5_6v3hw")
+clearcoat_enabled = true
+clearcoat = 0.58
+clearcoat_texture = ExtResource("2_rt7gu")
+heightmap_enabled = true
+heightmap_scale = 0.5
+heightmap_texture = ExtResource("5_6v3hw")
+detail_enabled = true
+detail_mask = ExtResource("4_hysmj")
+detail_albedo = ExtResource("3_17wux")
+
+[node name="planet" type="CSGMesh3D"]
+mesh = SubResource("SphereMesh_682lr")
+material = SubResource("StandardMaterial3D_y0ylr")

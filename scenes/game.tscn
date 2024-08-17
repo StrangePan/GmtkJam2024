@@ -1,36 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://x6mwu3dwlr08"]
+[gd_scene load_steps=2 format=3 uid="uid://x6mwu3dwlr08"]
 
-[ext_resource type="Texture2D" uid="uid://bhof4xyfj8w0w" path="res://textures/earth/earthmap1k.jpg" id="1_x17qy"]
-[ext_resource type="Texture2D" uid="uid://bbiw1qok7vvyu" path="res://textures/earth/earthspec1k.jpg" id="2_ts50o"]
-[ext_resource type="Texture2D" uid="uid://cixuwxu1mm2q5" path="res://textures/earth/earthcloudmap.jpg" id="3_f4bto"]
-[ext_resource type="Texture2D" uid="uid://bhhvl1w7n67ff" path="res://textures/earth/earthcloudmaptrans-inverted.png" id="4_7ouoy"]
-[ext_resource type="Texture2D" uid="uid://bwhqs8qakr3ob" path="res://textures/earth/earthbump1k.jpg" id="5_jrdbp"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_682lr"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y0ylr"]
-albedo_texture = ExtResource("1_x17qy")
-normal_scale = 0.1
-normal_texture = ExtResource("5_jrdbp")
-clearcoat_enabled = true
-clearcoat = 0.58
-clearcoat_texture = ExtResource("2_ts50o")
-heightmap_enabled = true
-heightmap_scale = 0.5
-heightmap_texture = ExtResource("5_jrdbp")
-detail_enabled = true
-detail_mask = ExtResource("4_7ouoy")
-detail_albedo = ExtResource("3_f4bto")
+[ext_resource type="PackedScene" uid="uid://h05gcqjgx5mf" path="res://scenes/planet.tscn" id="1_bwgin"]
 
 [node name="Node3D" type="Node3D"]
 
-[node name="planet" type="CSGMesh3D" parent="."]
-transform = Transform3D(-0.642788, 0, -0.766045, 0, 1, 0, 0.766045, 0, -0.642788, 0, 0, 0)
-mesh = SubResource("SphereMesh_682lr")
-material = SubResource("StandardMaterial3D_y0ylr")
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(-0.642788, 0, -0.766044, 0, 1, 0, 0.766044, 0, -0.642788, 0, 0, 0)
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="planet" parent="Node3D" instance=ExtResource("1_bwgin")]
+
+[node name="camera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="light" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.819152, 0, 0.573576, 0, 1, 0, -0.573576, 0, 0.819152, 0, 0, 0)
