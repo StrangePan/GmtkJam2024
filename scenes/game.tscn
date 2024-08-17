@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://x6mwu3dwlr08"]
+[gd_scene load_steps=3 format=3 uid="uid://x6mwu3dwlr08"]
 
 [ext_resource type="PackedScene" uid="uid://h05gcqjgx5mf" path="res://scenes/planet.tscn" id="1_bwgin"]
+[ext_resource type="PackedScene" uid="uid://dgo7dnhtfmexm" path="res://scenes/burner.fbx" id="2_vvylp"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -8,6 +9,9 @@
 transform = Transform3D(-0.642788, 0, -0.766044, 0, 1, 0, 0.766044, 0, -0.642788, 0, 0, 0)
 
 [node name="planet" parent="Node3D" instance=ExtResource("1_bwgin")]
+
+[node name="burner" parent="Node3D" instance=ExtResource("2_vvylp")]
+transform = Transform3D(-0.642788, 0, 0.766044, 0, 1, 0, -0.766044, 0, -0.642788, 1.2536, 0, 0.521818)
 
 [node name="camera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
