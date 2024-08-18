@@ -2,11 +2,11 @@ extends Node
 
 var leftWeight: int = 0
 var rightWeight: int = 0
-var angle: float = 0.0
-@export var maxAngleDeviation: float = 1.0
-@export var minAngleDeltaPerSecond: float = 0.01
-@export var maxAngleDeltaPerSecond: float = 0.2
-@export var angleDeltaEasing: float = 4
+var tilt: float = 0.0
+@export var maxUnbalance: float = 20
+@export var minTiltSpeed: float = 0.01
+@export var maxTiltSpeed: float = 0.2
+@export var tiltEasing: float = 2
 @export var scaleNode: Scale
 
 
@@ -25,21 +25,21 @@ func _physics_process(delta: float) -> void:
 		leftWeight = scaleNode.countLeftKernels()
 		rightWeight = scaleNode.countRightKernels()
 
-	var target_angle: float = _calculate_target_angle()
+	var target_tilt: float = _calculate_target_tilt()
 	var angle_delta: float = (
 		clampf(
-			absf(angle - target_angle) / angleDeltaEasing, 
-			minAngleDeltaPerSecond,
-			maxAngleDeltaPerSecond) * delta)
-	angle = move_toward(angle, target_angle, angle_delta)
+			absf(tilt - target_tilt) / tiltEasing, 
+			minTiltSpeed,
+			maxTiltSpeed) * delta)
+	tilt = move_toward(tilt, target_tilt, angle_delta)
 
 	if (scaleNode):
-		scaleNode.tilt = angle
+		scaleNode.tilt = tilt
 
 
 func _calculate_balance() -> int:
-	return rightWeight - leftWeight
+	return clamp(rightWeight - leftWeight, -maxUnbalance, maxUnbalance)
 
 
-func _calculate_target_angle() -> float:
-	return clampf(float(_calculate_balance()), -maxAngleDeviation, maxAngleDeviation)
+func _calculate_target_tilt() -> float:
+	return clampf(float(_calculate_balance()) / float(maxUnbalance), -1, 1)
