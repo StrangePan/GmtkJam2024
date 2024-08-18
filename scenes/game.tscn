@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://d1jysp8y77s2m"]
+[gd_scene load_steps=10 format=3 uid="uid://d1jysp8y77s2m"]
 
 [ext_resource type="PackedScene" uid="uid://cnmadwkkw88ih" path="res://assets/knob.fbx" id="1_4jvvf"]
+[ext_resource type="PackedScene" uid="uid://ceio5bnc2x0g" path="res://scenes/game-hud.tscn" id="1_jwqob"]
 [ext_resource type="PackedScene" uid="uid://bvuvqjlvtn13n" path="res://assets/stove.fbx" id="2_h01nh"]
 [ext_resource type="PackedScene" uid="uid://co7c66y8poewo" path="res://assets/table.fbx" id="3_gef2t"]
 [ext_resource type="PackedScene" uid="uid://cm6p0vk1ucybq" path="res://assets/scale.fbx" id="4_8a08m"]
@@ -34,6 +35,9 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 stretch_shrink = 6
+
+[node name="GameHud" parent="SubViewportContainer" instance=ExtResource("1_jwqob")]
+layout_mode = 2
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
