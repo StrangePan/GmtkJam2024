@@ -11,7 +11,7 @@ extends Node3D
 @onready var animation := $AnimationPlayer as AnimationPlayer
 
 @export_range(-1, 1, 0.001, "the amount of tilt on the scale") var tilt: float = 0: set = set_tilt
-var _time: float = 0
+#var _time: float = 0
 
 
 func set_tilt(value: float) -> void:
@@ -30,7 +30,7 @@ func _process(_delta: float) -> void:
 	pass
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	#_time += delta
 	#tilt = sin(_time / 3)
 	pass
