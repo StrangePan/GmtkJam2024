@@ -1,19 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://d1jysp8y77s2m"]
+[gd_scene load_steps=9 format=3 uid="uid://d1jysp8y77s2m"]
 
 [ext_resource type="PackedScene" uid="uid://cnmadwkkw88ih" path="res://assets/knob.fbx" id="1_4jvvf"]
 [ext_resource type="PackedScene" uid="uid://bvuvqjlvtn13n" path="res://assets/stove.fbx" id="2_h01nh"]
 [ext_resource type="PackedScene" uid="uid://co7c66y8poewo" path="res://assets/table.fbx" id="3_gef2t"]
 [ext_resource type="PackedScene" uid="uid://cm6p0vk1ucybq" path="res://assets/scale.fbx" id="4_8a08m"]
-[ext_resource type="Texture2D" uid="uid://ba6yai8bxpuwe" path="res://textures/stove_BC.png" id="5_en874"]
-[ext_resource type="Texture2D" uid="uid://bottiya0qu1vg" path="res://textures/stove_N.png" id="6_kunl0"]
-[ext_resource type="Texture2D" uid="uid://uq5vqmasjscy" path="res://textures/stove_ORM.png" id="7_kvfia"]
+[ext_resource type="Material" uid="uid://v65mfda2chqa" path="res://materials/stove-material.tres" id="5_l2cbs"]
 [ext_resource type="Shader" path="res://scenes/game.gdshader" id="8_g74tl"]
-
-[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_8yqcd"]
-albedo_texture = ExtResource("5_en874")
-orm_texture = ExtResource("7_kvfia")
-normal_enabled = true
-normal_texture = ExtResource("6_kunl0")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k7oaj"]
 render_priority = 0
@@ -35,7 +27,7 @@ size = Vector2(2, 2)
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 texture_filter = 1
-anchors_preset = -1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -44,7 +36,9 @@ stretch = true
 stretch_shrink = 6
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
 size = Vector2i(192, 108)
+render_target_update_mode = 4
 
 [node name="camera" type="Camera3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0800668, 1.3336, 4.61889)
@@ -102,7 +96,7 @@ bone_idx = 14
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.154157, 0, 0.0563886)
 
 [node name="sTOVE" parent="SubViewportContainer/SubViewport/stove" index="0"]
-material_override = SubResource("ORMMaterial3D_8yqcd")
+material_override = ExtResource("5_l2cbs")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40145, 2.55034)
