@@ -1,17 +1,107 @@
-[gd_scene load_steps=2 format=3 uid="uid://d1jysp8y77s2m"]
+[gd_scene load_steps=9 format=3 uid="uid://d1jysp8y77s2m"]
 
-[ext_resource type="PackedScene" uid="uid://dgo7dnhtfmexm" path="res://scenes/burner.fbx" id="2_vvylp"]
+[ext_resource type="PackedScene" uid="uid://cnmadwkkw88ih" path="res://assets/knob.fbx" id="1_4jvvf"]
+[ext_resource type="PackedScene" uid="uid://bvuvqjlvtn13n" path="res://assets/stove.fbx" id="2_h01nh"]
+[ext_resource type="PackedScene" uid="uid://co7c66y8poewo" path="res://assets/table.fbx" id="3_gef2t"]
+[ext_resource type="PackedScene" uid="uid://cm6p0vk1ucybq" path="res://assets/scale.fbx" id="4_8a08m"]
+[ext_resource type="Material" uid="uid://v65mfda2chqa" path="res://materials/stove-material.tres" id="5_l2cbs"]
+[ext_resource type="Shader" path="res://scenes/game.gdshader" id="8_g74tl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k7oaj"]
+render_priority = 0
+shader = ExtResource("8_g74tl")
+shader_parameter/depth_threshold = 0.05
+shader_parameter/reverse_depth_threshold = 0.25
+shader_parameter/normal_threshold = 0.6
+shader_parameter/darken_amount = 0.3
+shader_parameter/lighten_amount = 1.5
+shader_parameter/normal_edge_bias = Vector3(1, 1, 1)
+shader_parameter/light_direction = Vector3(-0.96, -0.18, 0.2)
+
+[sub_resource type="QuadMesh" id="QuadMesh_pjkhq"]
+material = SubResource("ShaderMaterial_k7oaj")
+flip_faces = true
+size = Vector2(2, 2)
 
 [node name="Node3D" type="Node3D"]
 
-[node name="Node3D" type="Node3D" parent="."]
-transform = Transform3D(-0.642788, 0, -0.766044, 0, 1, 0, 0.766044, 0, -0.642788, 0, 0, 0)
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 6
 
-[node name="burner" parent="Node3D" instance=ExtResource("2_vvylp")]
-transform = Transform3D(-0.642788, 0, 0.766044, 0, 1, 0, -0.766044, 0, -0.642788, 1.2536, 0, 0.521818)
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(192, 108)
+render_target_update_mode = 4
 
-[node name="camera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+[node name="camera" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0800668, 1.3336, 4.61889)
+fov = 42.123
 
-[node name="light" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.819152, 0, 0.573576, 0, 1, 0, -0.573576, 0, 0.819152, 0, 0, 0)
+[node name="light" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(0.41149, -0.418308, 0.809749, 0.190318, 0.908305, 0.372507, -0.891322, 0.000826305, 0.45337, 1.01493, 0.722088, 0)
+light_color = Color(1, 0.870588, 0.862745, 1)
+shadow_enabled = true
+shadow_blur = 0.0
+directional_shadow_mode = 1
+
+[node name="knob" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_4jvvf")]
+
+[node name="table" parent="SubViewportContainer/SubViewport" instance=ExtResource("3_gef2t")]
+
+[node name="scale" parent="SubViewportContainer/SubViewport" instance=ExtResource("4_8a08m")]
+
+[node name="Skeleton3D" parent="SubViewportContainer/SubViewport/scale/Armature" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, -2.84217e-14, 0, 2.84217e-14, 1, 0, 0, 0)
+
+[node name="Plane_013" parent="SubViewportContainer/SubViewport/scale/Armature/Skeleton3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.72948e-10, -0.00595961)
+bone_idx = 1
+
+[node name="Hook" parent="SubViewportContainer/SubViewport/scale/Armature/Skeleton3D" index="1"]
+transform = Transform3D(-0.10987, -3.93484e-08, 0, -7.10543e-15, 4.75875e-08, -0.10987, 3.93484e-08, -0.10987, -4.75874e-08, 8.21933e-05, -3.04714e-05, 0.0237013)
+bone_idx = 3
+
+[node name="Plane_007" parent="SubViewportContainer/SubViewport/scale/Armature/Skeleton3D" index="2"]
+transform = Transform3D(2.0443, 0.0918777, -1.20784, -0.168576, 2.36791, -0.105197, 1.19955, 0.17619, 2.04365, 0.0148393, 0.000304523, 0.00825964)
+bone_idx = 7
+
+[node name="Plane_008" parent="SubViewportContainer/SubViewport/scale/Armature/Skeleton3D" index="3"]
+transform = Transform3D(-1.55591, 1.18326, -1.1939, 1.43394, 1.78323, -0.101399, 0.877112, -0.816309, -1.9521, 0.00895687, 0.000336589, 0.0165719)
+bone_idx = 8
+
+[node name="BezierCircle_001" parent="SubViewportContainer/SubViewport/scale/Armature/Skeleton3D" index="4"]
+transform = Transform3D(0.379113, 5.68434e-14, 4.31001e-14, -2.84217e-14, 0.379112, -1.35581e-07, -4.20222e-14, 1.35581e-07, 0.379112, 0.00960231, 0.00039684, 0.00850049)
+bone_idx = 9
+
+[node name="Plane_011" parent="SubViewportContainer/SubViewport/scale/Armature/Skeleton3D" index="5"]
+transform = Transform3D(2.0443, 0.0918777, -1.20784, -0.168576, 2.36791, -0.105197, 1.19955, 0.17619, 2.04365, -0.00454249, 0.000304523, 0.00822371)
+bone_idx = 12
+
+[node name="Plane_012" parent="SubViewportContainer/SubViewport/scale/Armature/Skeleton3D" index="6"]
+transform = Transform3D(-1.55591, 1.18326, -1.1939, 1.43394, 1.78323, -0.101399, 0.877112, -0.816309, -1.9521, -0.0104249, 0.000336589, 0.016536)
+bone_idx = 13
+
+[node name="Plane_010" parent="SubViewportContainer/SubViewport/scale/Armature/Skeleton3D" index="7"]
+transform = Transform3D(0.73344, 8.52651e-14, 8.33824e-14, -5.68434e-14, 0.73344, -2.62298e-07, -8.12972e-14, 2.62298e-07, 0.73344, -0.00977947, 0.00039684, 0.00817624)
+bone_idx = 14
+
+[node name="stove" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_h01nh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.154157, 0, 0.0563886)
+
+[node name="sTOVE" parent="SubViewportContainer/SubViewport/stove" index="0"]
+material_override = ExtResource("5_l2cbs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40145, 2.55034)
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_pjkhq")
+
+[editable path="SubViewportContainer/SubViewport/scale"]
+[editable path="SubViewportContainer/SubViewport/stove"]
