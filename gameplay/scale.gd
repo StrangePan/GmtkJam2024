@@ -24,15 +24,6 @@ func _ready() -> void:
 	animation.play("tilt-scales", -1, 0)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
-
-
-func _physics_process(_delta: float) -> void:
-	pass
-
-
 func spawnLeftKernel() -> void:
 	var kernel := _kernelScene.instantiate()
 	add_child(kernel)
