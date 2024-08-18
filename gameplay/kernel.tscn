@@ -15,7 +15,6 @@ collision_layer = 4
 collision_mask = 6
 axis_lock_linear_z = true
 physics_material_override = SubResource("PhysicsMaterial_4fykj")
-can_sleep = false
 continuous_cd = true
 
 [node name="sphere" type="CSGSphere3D" parent="RigidBody3D"]
