@@ -25,17 +25,21 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	pass
+
+
+func _physics_process(delta: float) -> void:
 	_time += delta
 	tilt = sin(_time / 3)
 
 
 func spawnLeftPopcorn() -> void:
 	var popcorn := _popcornScene.instantiate()
-	popcorn.initialize(_leftSpawnPoint.global_position)
 	add_child(popcorn)
+	popcorn.initialize(_leftSpawnPoint.global_position)
 
 
 func spawnRightPopcorn() -> void:
 	var popcorn := _popcornScene.instantiate()
-	popcorn.initialize(_rightSpawnPoint.global_position)
 	add_child(popcorn)
+	popcorn.initialize(_rightSpawnPoint.global_position)

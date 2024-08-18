@@ -1,19 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://wa0ey1j8wred"]
+[gd_scene load_steps=4 format=3 uid="uid://wa0ey1j8wred"]
 
 [ext_resource type="Script" path="res://gameplay/popcorn.gd" id="1_ex7t1"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4fykj"]
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_8un3o"]
-radius = 0.2
+radius = 0.04
 
 [node name="Popcorn" type="Node3D"]
 script = ExtResource("1_ex7t1")
 
-[node name="sphere" type="CSGSphere3D" parent="."]
-radius = 0.2
-
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
-axis_lock_linear_z = true
-mass = 0.1
+physics_material_override = SubResource("PhysicsMaterial_4fykj")
+can_sleep = false
+
+[node name="sphere" type="CSGSphere3D" parent="RigidBody3D"]
+radius = 0.04
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
 shape = SubResource("SphereShape3D_8un3o")

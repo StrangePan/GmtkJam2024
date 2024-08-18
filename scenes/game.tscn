@@ -25,6 +25,7 @@ flip_faces = true
 size = Vector2(2, 2)
 
 [node name="Node3D" type="Node3D"]
+physics_interpolation_mode = 1
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 texture_filter = 1
