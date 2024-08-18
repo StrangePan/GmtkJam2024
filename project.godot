@@ -18,3 +18,10 @@ config/icon="res://icon.svg"
 [debug]
 
 gdscript/warnings/untyped_declaration=2
+
+[layer_names]
+
+3d_physics/layer_1="default"
+3d_physics/layer_2="scale"
+3d_physics/layer_3="kernel"
+3d_physics/layer_4="popcorn"

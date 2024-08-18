@@ -1,4 +1,4 @@
-class_name Popcorn
+class_name Kernel
 extends Node3D
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d1jysp8y77s2m"]
+[gd_scene load_steps=11 format=3 uid="uid://d1jysp8y77s2m"]
 
 [ext_resource type="PackedScene" uid="uid://cnmadwkkw88ih" path="res://assets/knob.fbx" id="1_4jvvf"]
 [ext_resource type="PackedScene" uid="uid://ceio5bnc2x0g" path="res://scenes/game-hud.tscn" id="1_jwqob"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://beef7lbtilcjy" path="res://gameplay/scale.tscn" id="3_domc3"]
 [ext_resource type="PackedScene" uid="uid://co7c66y8poewo" path="res://assets/table.fbx" id="3_gef2t"]
 [ext_resource type="Material" uid="uid://v65mfda2chqa" path="res://materials/stove-material.tres" id="5_l2cbs"]
+[ext_resource type="Script" path="res://gameplay/gameplay.gd" id="8_c2783"]
 [ext_resource type="Shader" path="res://scenes/game.gdshader" id="8_g74tl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k7oaj"]
@@ -72,5 +73,9 @@ material_override = ExtResource("5_l2cbs")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40145, 2.55034)
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_pjkhq")
+
+[node name="Gameplay" type="Node" parent="." node_paths=PackedStringArray("scaleNode")]
+script = ExtResource("8_c2783")
+scaleNode = NodePath("../SubViewportContainer/SubViewport/Scale")
 
 [editable path="SubViewportContainer/SubViewport/stove"]

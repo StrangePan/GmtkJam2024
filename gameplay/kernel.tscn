@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://wa0ey1j8wred"]
 
-[ext_resource type="Script" path="res://gameplay/popcorn.gd" id="1_ex7t1"]
+[ext_resource type="Script" path="res://gameplay/kernel.gd" id="1_h34ya"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4fykj"]
 
@@ -8,9 +8,11 @@
 radius = 0.04
 
 [node name="Popcorn" type="Node3D"]
-script = ExtResource("1_ex7t1")
+script = ExtResource("1_h34ya")
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
+collision_layer = 4
+collision_mask = 6
 physics_material_override = SubResource("PhysicsMaterial_4fykj")
 can_sleep = false
 

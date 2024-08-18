@@ -4,7 +4,9 @@ extends Node3D
 
 @onready var _leftSpawnPoint := $scale/Armature/Skeleton3D/Plane_010/Plane_010/LeftScaleSpawn
 @onready var _rightSpawnPoint := $scale/Armature/Skeleton3D/BezierCircle_001/BezierCircle_001/RightScaleSpawn
-@onready var _popcornScene := preload("res://gameplay/popcorn.tscn")
+@onready var _leftKernelArea := $scale/Armature/Skeleton3D/Plane_010/Plane_010/LeftScaleLKernelArea
+@onready var _rightKernelArea := $scale/Armature/Skeleton3D/BezierCircle_001/BezierCircle_001/RightScaleKernelArea
+@onready var _kernelScene := preload("res://gameplay/kernel.tscn")
 
 @onready var animation := $AnimationPlayer as AnimationPlayer
 
@@ -24,22 +26,31 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 
 func _physics_process(delta: float) -> void:
-	_time += delta
-	tilt = sin(_time / 3)
+	#_time += delta
+	#tilt = sin(_time / 3)
+	pass
 
 
-func spawnLeftPopcorn() -> void:
-	var popcorn := _popcornScene.instantiate()
-	add_child(popcorn)
-	popcorn.initialize(_leftSpawnPoint.global_position)
+func spawnLeftKernel() -> void:
+	var kernel := _kernelScene.instantiate()
+	add_child(kernel)
+	kernel.initialize(_leftSpawnPoint.global_position)
 
 
-func spawnRightPopcorn() -> void:
-	var popcorn := _popcornScene.instantiate()
-	add_child(popcorn)
-	popcorn.initialize(_rightSpawnPoint.global_position)
+func spawnRightKernel() -> void:
+	var kernel := _kernelScene.instantiate()
+	add_child(kernel)
+	kernel.initialize(_rightSpawnPoint.global_position)
+
+
+func countLeftKernels() -> int:
+	return _leftKernelArea.get_overlapping_bodies().size()
+
+
+func countRightKernels() -> int:
+	return _rightKernelArea.get_overlapping_bodies().size()

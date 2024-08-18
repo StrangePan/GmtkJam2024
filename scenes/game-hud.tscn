@@ -21,12 +21,12 @@ func _process(_delta: float) -> void:
 
 func _on_add_left_button_pressed() -> void:
 	if (scaleNode):
-		scaleNode.spawnLeftPopcorn()
+		scaleNode.spawnLeftKernel()
 
 
 func _on_add_right_button_pressed() -> void:
 	if (scaleNode):
-		scaleNode.spawnRightPopcorn()
+		scaleNode.spawnRightKernel()
 "
 
 [node name="GameHud" type="Control"]
