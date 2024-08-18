@@ -1,17 +1,77 @@
-[gd_scene load_steps=2 format=3 uid="uid://d1jysp8y77s2m"]
+[gd_scene load_steps=9 format=3 uid="uid://d1jysp8y77s2m"]
 
-[ext_resource type="PackedScene" uid="uid://dgo7dnhtfmexm" path="res://scenes/burner.fbx" id="2_vvylp"]
+[ext_resource type="PackedScene" uid="uid://cnmadwkkw88ih" path="res://assets/knob.fbx" id="1_4jvvf"]
+[ext_resource type="PackedScene" uid="uid://bvuvqjlvtn13n" path="res://assets/stove.fbx" id="2_h01nh"]
+[ext_resource type="PackedScene" uid="uid://co7c66y8poewo" path="res://assets/table.fbx" id="3_gef2t"]
+[ext_resource type="PackedScene" uid="uid://cm6p0vk1ucybq" path="res://assets/scale.fbx" id="4_8a08m"]
+[ext_resource type="Texture2D" uid="uid://ba6yai8bxpuwe" path="res://textures/stove_BC.png" id="5_en874"]
+[ext_resource type="Texture2D" uid="uid://bottiya0qu1vg" path="res://textures/stove_N.png" id="6_kunl0"]
+[ext_resource type="Texture2D" uid="uid://uq5vqmasjscy" path="res://textures/stove_ORM.png" id="7_kvfia"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_8yqcd"]
+albedo_texture = ExtResource("5_en874")
+orm_texture = ExtResource("7_kvfia")
+normal_enabled = true
+normal_texture = ExtResource("6_kunl0")
 
 [node name="Node3D" type="Node3D"]
 
 [node name="Node3D" type="Node3D" parent="."]
 transform = Transform3D(-0.642788, 0, -0.766044, 0, 1, 0, 0.766044, 0, -0.642788, 0, 0, 0)
 
-[node name="burner" parent="Node3D" instance=ExtResource("2_vvylp")]
-transform = Transform3D(-0.642788, 0, 0.766044, 0, 1, 0, -0.766044, 0, -0.642788, 1.2536, 0, 0.521818)
-
 [node name="camera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.12354, 0.312865, 0.908975)
+fov = 52.8
 
 [node name="light" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.819152, 0, 0.573576, 0, 1, 0, -0.573576, 0, 0.819152, 0, 0, 0)
+
+[node name="knob" parent="." instance=ExtResource("1_4jvvf")]
+
+[node name="table" parent="." instance=ExtResource("3_gef2t")]
+
+[node name="scale" parent="." instance=ExtResource("4_8a08m")]
+
+[node name="Skeleton3D" parent="scale/Armature" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, -2.84217e-14, 0, 2.84217e-14, 1, 0, 0, 0)
+
+[node name="Plane_013" parent="scale/Armature/Skeleton3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.72948e-10, -0.00595961)
+bone_idx = 1
+
+[node name="Hook" parent="scale/Armature/Skeleton3D" index="1"]
+transform = Transform3D(-0.10987, -3.93484e-08, 0, -7.10543e-15, 4.75875e-08, -0.10987, 3.93484e-08, -0.10987, -4.75874e-08, 8.21933e-05, -3.04714e-05, 0.0237013)
+bone_idx = 3
+
+[node name="Plane_007" parent="scale/Armature/Skeleton3D" index="2"]
+transform = Transform3D(2.0443, 0.0918777, -1.20784, -0.168576, 2.36791, -0.105197, 1.19955, 0.17619, 2.04365, 0.0148393, 0.000304523, 0.00825964)
+bone_idx = 7
+
+[node name="Plane_008" parent="scale/Armature/Skeleton3D" index="3"]
+transform = Transform3D(-1.55591, 1.18326, -1.1939, 1.43394, 1.78323, -0.101399, 0.877112, -0.816309, -1.9521, 0.00895687, 0.000336589, 0.0165719)
+bone_idx = 8
+
+[node name="BezierCircle_001" parent="scale/Armature/Skeleton3D" index="4"]
+transform = Transform3D(0.379113, 5.68434e-14, 4.31001e-14, -2.84217e-14, 0.379112, -1.35581e-07, -4.20222e-14, 1.35581e-07, 0.379112, 0.00960231, 0.00039684, 0.00850049)
+bone_idx = 9
+
+[node name="Plane_011" parent="scale/Armature/Skeleton3D" index="5"]
+transform = Transform3D(2.0443, 0.0918777, -1.20784, -0.168576, 2.36791, -0.105197, 1.19955, 0.17619, 2.04365, -0.00454249, 0.000304523, 0.00822371)
+bone_idx = 12
+
+[node name="Plane_012" parent="scale/Armature/Skeleton3D" index="6"]
+transform = Transform3D(-1.55591, 1.18326, -1.1939, 1.43394, 1.78323, -0.101399, 0.877112, -0.816309, -1.9521, -0.0104249, 0.000336589, 0.016536)
+bone_idx = 13
+
+[node name="Plane_010" parent="scale/Armature/Skeleton3D" index="7"]
+transform = Transform3D(0.73344, 8.52651e-14, 8.33824e-14, -5.68434e-14, 0.73344, -2.62298e-07, -8.12972e-14, 2.62298e-07, 0.73344, -0.00977947, 0.00039684, 0.00817624)
+bone_idx = 14
+
+[node name="stove" parent="." instance=ExtResource("2_h01nh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.154157, 0, 0.0563886)
+
+[node name="sTOVE" parent="stove" index="0"]
+material_override = SubResource("ORMMaterial3D_8yqcd")
+
+[editable path="scale"]
+[editable path="stove"]
