@@ -1,0 +1,11 @@
+[gd_resource type="ORMMaterial3D" load_steps=4 format=3 uid="uid://j7xfps6em4c3"]
+
+[ext_resource type="Texture2D" uid="uid://6vs1x071wuj1" path="res://textures/Pan_BC.png" id="1_k8iid"]
+[ext_resource type="Texture2D" uid="uid://d1keu7rs6xk4y" path="res://textures/Pan_N.png" id="2_cqoqs"]
+[ext_resource type="Texture2D" uid="uid://cwh5efvqr52lq" path="res://textures/Pan_ORM.png" id="3_67r55"]
+
+[resource]
+albedo_texture = ExtResource("1_k8iid")
+orm_texture = ExtResource("3_67r55")
+normal_enabled = true
+normal_texture = ExtResource("2_cqoqs")
