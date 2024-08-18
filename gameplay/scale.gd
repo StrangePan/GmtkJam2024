@@ -1,0 +1,41 @@
+class_name Scale
+extends Node3D
+
+
+@onready var _leftSpawnPoint := $scale/Armature/Skeleton3D/Plane_010/Plane_010/LeftScaleSpawn
+@onready var _rightSpawnPoint := $scale/Armature/Skeleton3D/BezierCircle_001/BezierCircle_001/RightScaleSpawn
+@onready var _popcornScene := preload("res://gameplay/popcorn.tscn")
+
+@onready var animation := $AnimationPlayer as AnimationPlayer
+
+@export_range(-1, 1, 0.001, "the amount of tilt on the scale") var tilt: float = 0: set = set_tilt
+var _time: float = 0
+
+
+func set_tilt(value: float) -> void:
+	tilt = value
+	if (animation):
+		animation.seek(clampf((value + 1) / 2 * animation.current_animation_length, 0, animation.current_animation_length), true)
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	animation.play("tilt-scales", -1, 0)
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	_time += delta
+	tilt = sin(_time / 3)
+
+
+func spawnLeftPopcorn() -> void:
+	var popcorn := _popcornScene.instantiate()
+	popcorn.initialize(_leftSpawnPoint.global_position)
+	add_child(popcorn)
+
+
+func spawnRightPopcorn() -> void:
+	var popcorn := _popcornScene.instantiate()
+	popcorn.initialize(_rightSpawnPoint.global_position)
+	add_child(popcorn)

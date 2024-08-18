@@ -34,14 +34,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 stretch = true
-stretch_shrink = 6
 
-[node name="GameHud" parent="SubViewportContainer" instance=ExtResource("1_jwqob")]
+[node name="GameHud" parent="SubViewportContainer" node_paths=PackedStringArray("scaleNode") instance=ExtResource("1_jwqob")]
 layout_mode = 2
+scaleNode = NodePath("../SubViewport/Scale")
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(192, 108)
+size = Vector2i(1152, 648)
 render_target_update_mode = 4
 
 [node name="camera" type="Camera3D" parent="SubViewportContainer/SubViewport"]
