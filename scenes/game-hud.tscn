@@ -5,7 +5,8 @@ script/source = "extends Control
 
 
 @export var scaleNode: Scale
-@onready var _scoreLabel := $VBoxContainer/HBoxContainer2/ScoreLabel
+@onready var _scoreLabel := $VBoxContainer/HBoxContainer2/PoppedLabel
+@onready var _burnedLabel := $VBoxContainer/HBoxContainer2/BurnedLabel
 
 var _popped: int = 0
 var _burned: int = 0
@@ -43,6 +44,7 @@ func _on_kernel_burned() -> void:
 
 func _update_score() -> void:
 	_scoreLabel.text = str(_popped)
+	_burnedLabel.text = str(_burned)
 "
 
 [sub_resource type="LabelSettings" id="LabelSettings_xpt81"]
@@ -74,11 +76,26 @@ alignment = 1
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
 layout_mode = 2
-text = "Popcorn: "
+text = "POPPED: "
 label_settings = SubResource("LabelSettings_xpt81")
 horizontal_alignment = 1
 
-[node name="ScoreLabel" type="Label" parent="VBoxContainer/HBoxContainer2"]
+[node name="PoppedLabel" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_xpt81")
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "BURNED: "
+label_settings = SubResource("LabelSettings_xpt81")
+horizontal_alignment = 1
+
+[node name="BurnedLabel" type="Label" parent="VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 label_settings = SubResource("LabelSettings_xpt81")
 horizontal_alignment = 1
