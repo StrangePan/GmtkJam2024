@@ -2,10 +2,8 @@ class_name Scale
 extends Node3D
 
 
-@onready var _leftSpawnPoint := $scale/Armature/Skeleton3D/Plane_010/Plane_010/LeftScaleSpawn
-@onready var _rightSpawnPoint := $scale/Armature/Skeleton3D/BezierCircle_001/BezierCircle_001/RightScaleSpawn
-@onready var _leftKernelArea := $scale/Armature/Skeleton3D/Plane_010/Plane_010/LeftScaleLKernelArea
-@onready var _rightKernelArea := $scale/Armature/Skeleton3D/BezierCircle_001/BezierCircle_001/RightScaleKernelArea
+@onready var _leftPan := $scale/Armature/Skeleton3D/pan_001/pan_001/LeftPan
+@onready var _rightPan := $scale/Armature/Skeleton3D/pan/pan/RightPan
 @onready var _kernelScene := preload("res://gameplay/kernel.tscn")
 
 @onready var animation := $AnimationPlayer as AnimationPlayer
@@ -27,18 +25,18 @@ func _ready() -> void:
 func spawnLeftKernel() -> void:
 	var kernel := _kernelScene.instantiate()
 	add_child(kernel)
-	kernel.initialize(_leftSpawnPoint.global_position)
+	kernel.initialize(_leftPan.kernelSpawn.global_position)
 
 
 func spawnRightKernel() -> void:
 	var kernel := _kernelScene.instantiate()
 	add_child(kernel)
-	kernel.initialize(_rightSpawnPoint.global_position)
+	kernel.initialize(_leftPan.kernelSpawn.global_position)
 
 
 func countLeftKernels() -> int:
-	return _leftKernelArea.get_overlapping_bodies().size()
+	return _leftPan.kernelArea.get_overlapping_bodies().size()
 
 
 func countRightKernels() -> int:
-	return _rightKernelArea.get_overlapping_bodies().size()
+	return _rightPan.kernelArea.get_overlapping_bodies().size()

@@ -1,4 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://dq5j4j8slrilc"]
+[gd_scene load_steps=6 format=3 uid="uid://dq5j4j8slrilc"]
+
+[ext_resource type="Script" path="res://gameplay/pan.gd" id="1_lb4d3"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hm0uo"]
 
@@ -13,6 +15,7 @@ height = 0.75
 radius = 0.6
 
 [node name="Pan" type="Node3D"]
+script = ExtResource("1_lb4d3")
 
 [node name="KernelSpawn" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

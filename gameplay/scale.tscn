@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://beef7lbtilcjy"]
+[gd_scene load_steps=7 format=3 uid="uid://beef7lbtilcjy"]
 
 [ext_resource type="Script" path="res://gameplay/scale.gd" id="1_bh02w"]
 [ext_resource type="PackedScene" uid="uid://c4dmasbscvga2" path="res://assets/scale.fbx" id="1_d62lk"]
+[ext_resource type="PackedScene" uid="uid://dq5j4j8slrilc" path="res://gameplay/pan.tscn" id="3_cisqh"]
 
 [sub_resource type="Animation" id="Animation_ngt6g"]
 length = 0.001
@@ -336,20 +337,26 @@ bones/2/scale = Vector3(1, 1, 1)
 bones/3/scale = Vector3(0.10987, 0.10987, 0.10987)
 
 [node name="Plane" parent="scale/Armature/Skeleton3D" index="0"]
-transform = Transform3D(0.965245, -3.1155e-08, 0.261347, 2.98023e-08, 1, -1.42109e-14, -0.261347, 4.1431e-09, 0.965245, -0.000379159, 1.72948e-10, -0.00590919)
+transform = Transform3D(1, 0, 0, 0, 1, -2.13163e-14, 0, -1.42109e-14, 1, 0, 1.72948e-10, -0.00595961)
 bone_idx = 1
 
 [node name="Hanger" parent="scale/Armature/Skeleton3D" index="1"]
-transform = Transform3D(-0.106051, -0.0287142, -9.01385e-09, -3.27438e-09, 4.75875e-08, -0.10987, 0.0287142, -0.106051, -4.63888e-08, 0.00785288, -3.04719e-05, 0.024626)
+transform = Transform3D(-0.10987, -3.95812e-08, -1.06581e-14, -7.10543e-15, 4.75875e-08, -0.10987, 3.86499e-08, -0.10987, -4.75875e-08, -3.43396e-05, -3.04719e-05, 0.0256657)
 bone_idx = 3
 
 [node name="pan_001" parent="scale/Armature/Skeleton3D" index="2"]
-transform = Transform3D(0.965245, -3.83693e-12, 0.261348, 2.98016e-08, 1, -1.19212e-07, -0.261347, 1.19195e-07, 0.965247, -0.00419883, 0.000396835, 0.0183245)
+transform = Transform3D(1, 1.42109e-13, -1.86374e-09, -7.67386e-13, 1, -1.19212e-07, 1.41561e-07, 1.19195e-07, 1, -0.0100203, 0.000396835, 0.0164336)
 bone_idx = 6
 
+[node name="LeftPan" parent="scale/Armature/Skeleton3D/pan_001/pan_001" index="0" instance=ExtResource("3_cisqh")]
+transform = Transform3D(0.007, 0, 0, 0, -3.0598e-10, -0.007, 0, 0.007, -3.0598e-10, 2.08616e-10, 4.26179e-10, -0.00974984)
+
 [node name="pan" parent="scale/Armature/Skeleton3D" index="3"]
-transform = Transform3D(0.965245, -3.83693e-12, 0.261348, 2.98016e-08, 1, -1.19212e-07, -0.261347, 1.19195e-07, 0.965247, 0.0143449, 0.000396835, 0.0134163)
+transform = Transform3D(1, 1.42109e-13, -1.86374e-09, -7.67386e-13, 1, -1.19212e-07, 1.41561e-07, 1.19195e-07, 1, 0.00916163, 0.000396835, 0.0165423)
 bone_idx = 7
+
+[node name="RightPan" parent="scale/Armature/Skeleton3D/pan/pan" index="0" instance=ExtResource("3_cisqh")]
+transform = Transform3D(0.007, 0, 0, 0, -3.0598e-10, -0.007, 0, 0.007, -3.0598e-10, 0.000310925, 4.41675e-10, -0.0101043)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 deterministic = true
