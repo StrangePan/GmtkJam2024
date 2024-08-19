@@ -1,15 +1,17 @@
-[gd_scene load_steps=9 format=3 uid="uid://d1jysp8y77s2m"]
+[gd_scene load_steps=10 format=3 uid="uid://d1jysp8y77s2m"]
 
 [ext_resource type="PackedScene" uid="uid://x1b8x55nlusg" path="res://assets/knob.fbx" id="1_4jvvf"]
-[ext_resource type="Material" uid="uid://j7xfps6em4c3" path="res://materials/Pan.tres" id="2_83caq"]
+[ext_resource type="PackedScene" uid="uid://ceio5bnc2x0g" path="res://scenes/game-hud.tscn" id="1_jwqob"]
 [ext_resource type="PackedScene" uid="uid://couoaxrl5kyi3" path="res://assets/stove.fbx" id="2_h01nh"]
+[ext_resource type="PackedScene" uid="uid://beef7lbtilcjy" path="res://gameplay/scale.tscn" id="2_y840t"]
 [ext_resource type="PackedScene" uid="uid://db6u6bevoliq" path="res://assets/table.fbx" id="3_gef2t"]
-[ext_resource type="PackedScene" uid="uid://c4dmasbscvga2" path="res://assets/scale.fbx" id="4_8a08m"]
+[ext_resource type="Material" uid="uid://j7xfps6em4c3" path="res://materials/Pan.tres" id="4_e425v"]
 [ext_resource type="Material" uid="uid://j02yicxubdag" path="res://materials/WoodNChain.tres" id="4_fxqg7"]
-[ext_resource type="Material" uid="uid://cd7h7237hh5cs" path="res://materials/Hanger.tres" id="5_g7e2t"]
 [ext_resource type="Material" uid="uid://fnro653grc1c" path="res://materials/Stove.tres" id="7_l6td3"]
+[ext_resource type="Script" path="res://gameplay/gameplay.gd" id="8_c2783"]
 
 [node name="Node3D" type="Node3D"]
+physics_interpolation_mode = 1
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 texture_filter = 1
@@ -19,6 +21,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 stretch = true
+
+[node name="GameHud" parent="SubViewportContainer" node_paths=PackedStringArray("scaleNode") instance=ExtResource("1_jwqob")]
+layout_mode = 2
+scaleNode = NodePath("../SubViewport/Scale")
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
@@ -37,6 +43,9 @@ shadow_enabled = true
 shadow_blur = 3.2
 directional_shadow_mode = 1
 
+[node name="Scale" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_y840t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0470439, 0, 0.100765)
+
 [node name="Node3D" type="Node3D" parent="SubViewportContainer"]
 
 [node name="knob" parent="SubViewportContainer/Node3D" instance=ExtResource("1_4jvvf")]
@@ -44,39 +53,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.112169, 0)
 
 [node name="Circle_005" parent="SubViewportContainer/Node3D/knob" index="0"]
 transform = Transform3D(100, 0, 0, 0, -1.19209e-05, 100, 0, -100, -1.19209e-05, 0.00154806, 0.254484, 0.943171)
-surface_material_override/0 = ExtResource("2_83caq")
-
-[node name="scale" parent="SubViewportContainer/Node3D" instance=ExtResource("4_8a08m")]
-
-[node name="Plane" parent="SubViewportContainer/Node3D/scale/Armature/Skeleton3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.72948e-10, -0.00595961)
-bone_idx = 1
-
-[node name="Plane" parent="SubViewportContainer/Node3D/scale/Armature/Skeleton3D/Plane" index="0"]
-surface_material_override/0 = ExtResource("4_fxqg7")
-
-[node name="Hanger" parent="SubViewportContainer/Node3D/scale/Armature/Skeleton3D" index="1"]
-transform = Transform3D(-0.10987, -3.93484e-08, 0, -7.10543e-15, 4.75875e-08, -0.10987, 3.93484e-08, -0.10987, -4.75874e-08, -3.43396e-05, -3.04719e-05, 0.0256657)
-bone_idx = 3
-
-[node name="Hanger" parent="SubViewportContainer/Node3D/scale/Armature/Skeleton3D/Hanger" index="0"]
-surface_material_override/0 = ExtResource("5_g7e2t")
-
-[node name="pan_001" parent="SubViewportContainer/Node3D/scale/Armature/Skeleton3D" index="2"]
-transform = Transform3D(1, 8.52651e-14, -5.58903e-09, -7.10543e-13, 1, -1.19212e-07, 1.37836e-07, 1.19195e-07, 1, -0.0100203, 0.000396835, 0.0164336)
-bone_idx = 6
-
-[node name="pan_001" parent="SubViewportContainer/Node3D/scale/Armature/Skeleton3D/pan_001" index="0"]
-surface_material_override/0 = ExtResource("2_83caq")
-surface_material_override/1 = ExtResource("4_fxqg7")
-
-[node name="pan" parent="SubViewportContainer/Node3D/scale/Armature/Skeleton3D" index="3"]
-transform = Transform3D(1, 8.52651e-14, -5.58903e-09, -7.10543e-13, 1, -1.19212e-07, 1.37836e-07, 1.19195e-07, 1, 0.00916163, 0.000396835, 0.0165423)
-bone_idx = 7
-
-[node name="pan" parent="SubViewportContainer/Node3D/scale/Armature/Skeleton3D/pan" index="0"]
-surface_material_override/0 = ExtResource("2_83caq")
-surface_material_override/1 = ExtResource("4_fxqg7")
+surface_material_override/0 = ExtResource("4_e425v")
 
 [node name="stove" parent="SubViewportContainer/Node3D" instance=ExtResource("2_h01nh")]
 
@@ -93,7 +70,11 @@ material_override = ExtResource("4_fxqg7")
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer/Node3D"]
 
+[node name="Gameplay" type="Node" parent="." node_paths=PackedStringArray("scaleNode")]
+script = ExtResource("8_c2783")
+maxUnbalance = 10.0
+scaleNode = NodePath("../SubViewportContainer/SubViewport/Scale")
+
 [editable path="SubViewportContainer/Node3D/knob"]
-[editable path="SubViewportContainer/Node3D/scale"]
 [editable path="SubViewportContainer/Node3D/stove"]
 [editable path="SubViewportContainer/Node3D/table"]

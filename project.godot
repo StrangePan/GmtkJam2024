@@ -14,3 +14,14 @@ config/name="GMTK Jam 2024"
 run/main_scene="res://scenes/game.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
+
+[debug]
+
+gdscript/warnings/untyped_declaration=2
+
+[layer_names]
+
+3d_physics/layer_1="default"
+3d_physics/layer_2="scale"
+3d_physics/layer_3="kernel"
+3d_physics/layer_4="popcorn"

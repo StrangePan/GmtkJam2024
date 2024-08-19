@@ -1,0 +1,68 @@
+[gd_scene load_steps=2 format=3 uid="uid://ceio5bnc2x0g"]
+
+[sub_resource type="GDScript" id="GDScript_xwl8u"]
+script/source = "extends Control
+
+
+@export var scaleNode: Scale
+@onready var leftButton := $HBoxContainer/AddLeftContainer/AddLeftButton
+@onready var rightButton := $HBoxContainer/AddRightContainer/AddRightButton
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	pass
+
+
+func _on_add_left_button_pressed() -> void:
+	if (scaleNode):
+		scaleNode.spawnLeftKernel()
+
+
+func _on_add_right_button_pressed() -> void:
+	if (scaleNode):
+		scaleNode.spawnRightKernel()
+"
+
+[node name="GameHud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_xwl8u")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AddLeftContainer" type="CenterContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AddLeftButton" type="Button" parent="HBoxContainer/AddLeftContainer"]
+layout_mode = 2
+action_mode = 0
+text = "ADD POPCORN"
+
+[node name="AddRightContainer" type="CenterContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AddRightButton" type="Button" parent="HBoxContainer/AddRightContainer"]
+layout_mode = 2
+action_mode = 0
+text = "ADD POPCORN"
+
+[connection signal="pressed" from="HBoxContainer/AddLeftContainer/AddLeftButton" to="." method="_on_add_left_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/AddRightContainer/AddRightButton" to="." method="_on_add_right_button_pressed"]
