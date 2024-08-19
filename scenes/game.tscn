@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://d1jysp8y77s2m"]
+[gd_scene load_steps=9 format=3 uid="uid://d1jysp8y77s2m"]
 
 [ext_resource type="PackedScene" uid="uid://x1b8x55nlusg" path="res://assets/knob.fbx" id="1_4jvvf"]
 [ext_resource type="PackedScene" uid="uid://ceio5bnc2x0g" path="res://scenes/game-hud.tscn" id="1_jwqob"]
 [ext_resource type="PackedScene" uid="uid://couoaxrl5kyi3" path="res://assets/stove.fbx" id="2_h01nh"]
+[ext_resource type="PackedScene" uid="uid://beef7lbtilcjy" path="res://gameplay/scale.tscn" id="2_y840t"]
 [ext_resource type="PackedScene" uid="uid://db6u6bevoliq" path="res://assets/table.fbx" id="3_gef2t"]
 [ext_resource type="Material" uid="uid://j02yicxubdag" path="res://materials/WoodNChain.tres" id="4_fxqg7"]
 [ext_resource type="Material" uid="uid://fnro653grc1c" path="res://materials/Stove.tres" id="7_l6td3"]
@@ -20,8 +21,9 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 
-[node name="GameHud" parent="SubViewportContainer" instance=ExtResource("1_jwqob")]
+[node name="GameHud" parent="SubViewportContainer" node_paths=PackedStringArray("scaleNode") instance=ExtResource("1_jwqob")]
 layout_mode = 2
+scaleNode = NodePath("../SubViewport/Scale")
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
@@ -39,6 +41,9 @@ light_color = Color(1, 0.870588, 0.862745, 1)
 shadow_enabled = true
 shadow_blur = 3.2
 directional_shadow_mode = 1
+
+[node name="Scale" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_y840t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0470439, 0, 0.100765)
 
 [node name="Node3D" type="Node3D" parent="SubViewportContainer"]
 
@@ -63,9 +68,10 @@ material_override = ExtResource("4_fxqg7")
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer/Node3D"]
 
-[node name="Gameplay" type="Node" parent="."]
+[node name="Gameplay" type="Node" parent="." node_paths=PackedStringArray("scaleNode")]
 script = ExtResource("8_c2783")
 maxUnbalance = 10.0
+scaleNode = NodePath("../SubViewportContainer/SubViewport/Scale")
 
 [editable path="SubViewportContainer/Node3D/knob"]
 [editable path="SubViewportContainer/Node3D/stove"]
