@@ -31,7 +31,7 @@ func spawnLeftKernel() -> void:
 func spawnRightKernel() -> void:
 	var kernel := _kernelScene.instantiate()
 	add_child(kernel)
-	kernel.initialize(_leftPan.kernelSpawn.global_position)
+	kernel.initialize(_rightPan.kernelSpawn.global_position)
 
 
 func countLeftKernels() -> int:
