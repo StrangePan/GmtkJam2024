@@ -1,0 +1,11 @@
+[gd_resource type="ORMMaterial3D" load_steps=4 format=3 uid="uid://cd7h7237hh5cs"]
+
+[ext_resource type="Texture2D" uid="uid://bnmqw254i1wtu" path="res://textures/Hanger_BC.png" id="1_h4mi2"]
+[ext_resource type="Texture2D" uid="uid://c8x74eyxg6uca" path="res://textures/Hanger_N.png" id="2_5pfmj"]
+[ext_resource type="Texture2D" uid="uid://2muyirw2tm83" path="res://textures/Hanger_ORM.png" id="3_utd1e"]
+
+[resource]
+albedo_texture = ExtResource("1_h4mi2")
+orm_texture = ExtResource("3_utd1e")
+normal_enabled = true
+normal_texture = ExtResource("2_5pfmj")
