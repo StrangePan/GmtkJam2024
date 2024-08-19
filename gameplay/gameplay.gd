@@ -22,8 +22,8 @@ func _process(_delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	if (scaleNode):
-		leftWeight = scaleNode.countLeftKernels()
-		rightWeight = scaleNode.countRightKernels()
+		leftWeight = scaleNode.countKernels(Scale.Side.Left)
+		rightWeight = scaleNode.countKernels(Scale.Side.Right)
 
 	var target_tilt: float = _calculate_target_tilt()
 	var angle_delta: float = (

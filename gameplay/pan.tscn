@@ -8,7 +8,7 @@
 size = Vector3(0.1, 0.5, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_komly"]
-size = Vector3(1.1, 0.1, 0.5)
+size = Vector3(1.1, 0.2, 0.5)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_al671"]
 height = 0.75
@@ -37,7 +37,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.25, 0)
 shape = SubResource("BoxShape3D_kbwb7")
 
 [node name="BottomWallShape" type="CollisionShape3D" parent="AnimatableBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 shape = SubResource("BoxShape3D_komly")
 
 [node name="KernelArea" type="Area3D" parent="."]

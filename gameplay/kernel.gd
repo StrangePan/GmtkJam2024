@@ -2,25 +2,57 @@ class_name Kernel
 extends Node3D
 
 
-var popped := false
+@onready var _popcornScene := preload("res://gameplay/popcorn.tscn")
+@export_range(0, 10, 0.25, "The number of seconds required to pop or burn") var cookTime: float = 4
+@export_range(0, 10, 0.25, "The amount of allowed random variation inc ook time") var cookTimeVariation: float = 2
+@export_range(0, 1, 0.01, "The threshold that the kernel will start to cook") var cookThreshold: float = -0.05
+@export_range(0, 1, 0.01, "The threshold that the kernel will start to burn") var burnThreshold: float = 0.2
+@export_range(0, 1, 0.01, "The maximum amount of allowable burnage") var acceptableBurnedPercentage: float = 0.5
+
+@export_range(0, 100, 0.5, "The speed at which to pop") var popVelocity: float = 5
+
+var _timeCooked: float = 0
+var _timeBurned: float = 0
+var _scale: Scale
+var _side: Scale.Side
+@onready var _cookTime: float = cookTime + randf() * cookTimeVariation
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func initialize(start_position: Vector3, scale: Scale, side: Scale.Side) -> void:
+	global_position = start_position
+	_scale = scale
+	_side = side
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
+func _physics_process(delta: float) -> void:
+	var tilt := _scale.tilt
+	if (_side == Scale.Side.Left):
+		if (tilt < -cookThreshold):
+			_timeCooked += delta
+		if (tilt < -burnThreshold):
+			_timeBurned += delta
+	if (_side == Scale.Side.Right):
+		if (tilt >= cookThreshold):
+			_timeCooked += delta
+		if (tilt >= burnThreshold):
+			_timeBurned += delta
+	if (_timeCooked >= _cookTime or _timeBurned >= _cookTime):
+		if (_timeBurned / _cookTime < acceptableBurnedPercentage):
+			pop()
+		else:
+			burn()
 
 
 func pop() -> void:
-	if (popped):
-		return
-	popped = true
-	transform.scaled(Vector3(5, 5, 5))
+	var popcorn := _popcornScene.instantiate()
+	self.add_sibling(popcorn)
+	popcorn.global_position = global_position
+	if (_side == Scale.Side.Left):
+		popcorn.apply_impulse(Vector3(-popVelocity / 4, popVelocity, 0))
+	else:
+		popcorn.apply_impulse(Vector3(popVelocity / 4, popVelocity, 0))
+	self.queue_free()
 
 
-func initialize(start_position: Vector3) -> void:
-	global_position = start_position
+func burn() -> void:
+	self.queue_free()

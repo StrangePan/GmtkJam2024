@@ -73,6 +73,9 @@ material_override = ExtResource("4_fxqg7")
 [node name="Gameplay" type="Node" parent="." node_paths=PackedStringArray("scaleNode")]
 script = ExtResource("8_c2783")
 maxUnbalance = 10.0
+minTiltSpeed = null
+maxTiltSpeed = null
+tiltEasing = null
 scaleNode = NodePath("../SubViewportContainer/SubViewport/Scale")
 
 [editable path="SubViewportContainer/Node3D/knob"]
