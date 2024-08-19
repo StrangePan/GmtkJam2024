@@ -1,6 +1,8 @@
 class_name Kernel
 extends Node3D
 
+signal kernel_popped
+signal kernel_burned
 
 @onready var _popcornScene := preload("res://gameplay/popcorn.tscn")
 @export_range(0, 10, 0.25, "The number of seconds required to pop or burn") var cookTime: float = 4
@@ -51,8 +53,10 @@ func pop() -> void:
 		popcorn.apply_impulse(Vector3(-popVelocity / 4, popVelocity, 0))
 	else:
 		popcorn.apply_impulse(Vector3(popVelocity / 4, popVelocity, 0))
+	kernel_popped.emit()
 	self.queue_free()
 
 
 func burn() -> void:
+	kernel_burned.emit()
 	self.queue_free()

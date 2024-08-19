@@ -1,33 +1,55 @@
-[gd_scene load_steps=2 format=3 uid="uid://ceio5bnc2x0g"]
+[gd_scene load_steps=3 format=3 uid="uid://ceio5bnc2x0g"]
 
 [sub_resource type="GDScript" id="GDScript_xwl8u"]
 script/source = "extends Control
 
 
 @export var scaleNode: Scale
-@onready var leftButton := $HBoxContainer/AddLeftContainer/AddLeftButton
-@onready var rightButton := $HBoxContainer/AddRightContainer/AddRightButton
+@onready var _scoreLabel := $VBoxContainer/HBoxContainer2/ScoreLabel
+
+var _popped: int = 0
+var _burned: int = 0
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
+	_update_score()
 
 
 func _on_add_left_button_pressed() -> void:
-	if (scaleNode):
-		scaleNode.spawnKernel(Scale.Side.Left)
+	spawnKernel(Scale.Side.Left)
 
 
 func _on_add_right_button_pressed() -> void:
-	if (scaleNode):
-		scaleNode.spawnKernel(Scale.Side.Right)
+	spawnKernel(Scale.Side.Right)
+
+
+func spawnKernel(side: Scale.Side) -> void:
+	if (!scaleNode):
+		return
+	var kernel := scaleNode.spawnKernel(side)
+	kernel.kernel_popped.connect(_on_kernel_popped)
+	kernel.kernel_burned.connect(_on_kernel_burned)
+
+
+func _on_kernel_popped() -> void:
+	_popped += 1
+	_update_score()
+
+
+func _on_kernel_burned() -> void:
+	_burned += 1
+	_update_score()
+
+
+func _update_score() -> void:
+	_scoreLabel.text = str(_popped)
 "
+
+[sub_resource type="LabelSettings" id="LabelSettings_xpt81"]
+font_size = 50
+shadow_size = 16
+shadow_color = Color(0, 0, 0, 0.501961)
+shadow_offset = Vector2(2, 2)
 
 [node name="GameHud" type="Control"]
 layout_mode = 3
@@ -38,7 +60,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = SubResource("GDScript_xwl8u")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -46,23 +68,42 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="AddLeftContainer" type="CenterContainer" parent="HBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Popcorn: "
+label_settings = SubResource("LabelSettings_xpt81")
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_xpt81")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="AddLeftContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="AddLeftButton" type="Button" parent="HBoxContainer/AddLeftContainer"]
+[node name="AddLeftButton" type="Button" parent="VBoxContainer/HBoxContainer/AddLeftContainer"]
 layout_mode = 2
 action_mode = 0
 text = "ADD POPCORN"
 
-[node name="AddRightContainer" type="CenterContainer" parent="HBoxContainer"]
+[node name="AddRightContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="AddRightButton" type="Button" parent="HBoxContainer/AddRightContainer"]
+[node name="AddRightButton" type="Button" parent="VBoxContainer/HBoxContainer/AddRightContainer"]
 layout_mode = 2
 action_mode = 0
 text = "ADD POPCORN"
 
-[connection signal="pressed" from="HBoxContainer/AddLeftContainer/AddLeftButton" to="." method="_on_add_left_button_pressed"]
-[connection signal="pressed" from="HBoxContainer/AddRightContainer/AddRightButton" to="." method="_on_add_right_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/AddLeftContainer/AddLeftButton" to="." method="_on_add_left_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/AddRightContainer/AddRightButton" to="." method="_on_add_right_button_pressed"]

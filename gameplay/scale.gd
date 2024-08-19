@@ -39,10 +39,11 @@ func _getPan(side: Scale.Side) -> Pan:
 		return null
 
 
-func spawnKernel(side: Scale.Side) -> void:
+func spawnKernel(side: Scale.Side) -> Kernel:
 	var kernel := _kernelScene.instantiate()
 	add_child(kernel)
 	kernel.initialize(_getPan(side).kernelSpawn.global_position, self, side)
+	return kernel
 
 
 func countKernels(side: Scale.Side) -> int:
