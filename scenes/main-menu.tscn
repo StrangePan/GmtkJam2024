@@ -1,0 +1,299 @@
+[gd_scene load_steps=18 format=3 uid="uid://bkr05okily5nr"]
+
+[ext_resource type="Script" path="res://gameplay/sway-scale.gd" id="1_leo7w"]
+[ext_resource type="PackedScene" uid="uid://beef7lbtilcjy" path="res://gameplay/scale.tscn" id="2_pa65k"]
+[ext_resource type="PackedScene" uid="uid://x1b8x55nlusg" path="res://assets/knob.fbx" id="3_lkien"]
+[ext_resource type="Material" uid="uid://j7xfps6em4c3" path="res://materials/Pan.tres" id="4_cgemp"]
+[ext_resource type="PackedScene" uid="uid://couoaxrl5kyi3" path="res://assets/stove.fbx" id="5_t8xdp"]
+[ext_resource type="Material" uid="uid://fnro653grc1c" path="res://materials/Stove.tres" id="6_xhs4b"]
+[ext_resource type="PackedScene" uid="uid://db6u6bevoliq" path="res://assets/table.fbx" id="7_7nxpd"]
+[ext_resource type="Material" uid="uid://j02yicxubdag" path="res://materials/WoodNChain.tres" id="8_8qif5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0hr37"]
+font_size = 50
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 0.501961)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="GDScript" id="GDScript_ded1t"]
+script/source = "extends Button
+
+
+func _ready() -> void:
+	pressed.connect(self._button_pressed)
+
+
+func _button_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://scenes/game.tscn\")
+"
+
+[sub_resource type="GDScript" id="GDScript_rgc14"]
+script/source = "extends Button
+
+
+@onready var _mainMenuContainer := $\"../..\"
+@onready var _helpContainer := $\"../../../HelpContainer\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pressed.connect(self._button_pressed)
+
+func _button_pressed() -> void:
+	_mainMenuContainer.visible = false
+	_helpContainer.visible = true
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_7qmhl"]
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="GDScript" id="GDScript_h88pd"]
+script/source = "extends Button
+
+
+func _ready() -> void:
+	pressed.connect(self._button_pressed)
+
+
+func _button_pressed() -> void:
+	OS.shell_open(\"http://danandrus.me/\")
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_xo7p3"]
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0jbgk"]
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_tfq5j"]
+line_spacing = 5.0
+font_size = 22
+
+[sub_resource type="GDScript" id="GDScript_sq5vd"]
+script/source = "extends Button
+
+
+@onready var _mainMenuContainer := $\"../../MainMenuContainer\"
+@onready var _helpContainer := $\"..\"
+
+
+func _ready() -> void:
+	pressed.connect(self._button_pressed)
+
+
+func _button_pressed() -> void:
+	_mainMenuContainer.visible = true
+	_helpContainer.visible = false
+"
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="camera" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0483631, 1.36079, 2.46575)
+fov = 82.8
+far = 34.45
+
+[node name="light" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(0.307397, -0.914243, 0.263945, 0.0618334, 0.29598, 0.95319, -0.94957, -0.276687, 0.147514, 1.01493, 0.722088, 0)
+light_color = Color(1, 0.870588, 0.862745, 1)
+shadow_enabled = true
+shadow_blur = 3.2
+directional_shadow_mode = 1
+
+[node name="Node" type="Node" parent="SubViewportContainer/SubViewport" node_paths=PackedStringArray("scaleNode")]
+script = ExtResource("1_leo7w")
+scaleNode = NodePath("../Scale")
+
+[node name="Scale" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_pa65k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0470439, 0, 0.100765)
+
+[node name="Node3D" type="Node3D" parent="SubViewportContainer/SubViewport"]
+
+[node name="knob" parent="SubViewportContainer/SubViewport/Node3D" instance=ExtResource("3_lkien")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.112169, 0)
+
+[node name="Circle_005" parent="SubViewportContainer/SubViewport/Node3D/knob" index="0"]
+transform = Transform3D(100, 0, 0, 0, -1.19209e-05, 100, 0, -100, -1.19209e-05, 0.00154806, 0.254484, 0.943171)
+surface_material_override/0 = ExtResource("4_cgemp")
+
+[node name="stove" parent="SubViewportContainer/SubViewport/Node3D" instance=ExtResource("5_t8xdp")]
+
+[node name="Stove" parent="SubViewportContainer/SubViewport/Node3D/stove" index="0"]
+surface_material_override/0 = ExtResource("6_xhs4b")
+
+[node name="Stove_001" parent="SubViewportContainer/SubViewport/Node3D/stove" index="1"]
+surface_material_override/0 = ExtResource("6_xhs4b")
+
+[node name="table" parent="SubViewportContainer/SubViewport/Node3D" instance=ExtResource("7_7nxpd")]
+
+[node name="table" parent="SubViewportContainer/SubViewport/Node3D/table" index="0"]
+material_override = ExtResource("8_8qif5")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainMenuContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Control3" type="Control" parent="Control/MainMenuContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Control/MainMenuContainer"]
+layout_mode = 2
+text = "POPPED TO SCALE"
+label_settings = SubResource("LabelSettings_0hr37")
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="Control/MainMenuContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MainMenuContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="PlayButton" type="Button" parent="Control/MainMenuContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Play!"
+script = SubResource("GDScript_ded1t")
+
+[node name="Control" type="Control" parent="Control/MainMenuContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="HelpButton" type="Button" parent="Control/MainMenuContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Help"
+script = SubResource("GDScript_rgc14")
+
+[node name="HFlowContainer" type="HFlowContainer" parent="Control/MainMenuContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/MainMenuContainer/HFlowContainer"]
+layout_mode = 2
+text = "Art by Lucas Leme.  Programming by "
+label_settings = SubResource("LabelSettings_7qmhl")
+
+[node name="Button" type="Button" parent="Control/MainMenuContainer/HFlowContainer"]
+layout_mode = 2
+text = "Dan Andrus"
+script = SubResource("GDScript_h88pd")
+
+[node name="Label2" type="Label" parent="Control/MainMenuContainer/HFlowContainer"]
+layout_mode = 2
+text = "."
+label_settings = SubResource("LabelSettings_xo7p3")
+
+[node name="Label" type="Label" parent="Control/MainMenuContainer"]
+layout_mode = 2
+text = "Made for the 2024 GMTK Game Jam using Godot 4.3. All other assets were handmade by us."
+label_settings = SubResource("LabelSettings_0jbgk")
+horizontal_alignment = 1
+
+[node name="Control2" type="Control" parent="Control/MainMenuContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="HelpContainer" type="VBoxContainer" parent="Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control5" type="Control" parent="Control/HelpContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Control/HelpContainer"]
+layout_mode = 2
+text = "HELP"
+label_settings = SubResource("LabelSettings_0hr37")
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="Control/HelpContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Control/HelpContainer"]
+layout_mode = 2
+text = "You are camping in the forest, but forgot to bring food!
+All you have is popcorn kernels, portable stoves, and your wits!
+
+Balance the scales to cook your popcorn kernels until they pop.
+Don't let them get too close to the stoves or else they will burn!
+You have 2 minutes to make as much popcorn as possible.
+
+Good luck!"
+label_settings = SubResource("LabelSettings_tfq5j")
+horizontal_alignment = 1
+
+[node name="Control2" type="Control" parent="Control/HelpContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HelpButton" type="Button" parent="Control/HelpContainer"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Back"
+script = SubResource("GDScript_sq5vd")
+
+[node name="Control3" type="Control" parent="Control/HelpContainer"]
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+
+[node name="Control4" type="Control" parent="Control/HelpContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[editable path="SubViewportContainer/SubViewport/Node3D/knob"]
+[editable path="SubViewportContainer/SubViewport/Node3D/stove"]
+[editable path="SubViewportContainer/SubViewport/Node3D/table"]
