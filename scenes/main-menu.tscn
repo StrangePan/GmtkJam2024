@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bkr05okily5nr"]
+[gd_scene load_steps=22 format=3 uid="uid://bkr05okily5nr"]
 
 [ext_resource type="Script" path="res://gameplay/sway-scale.gd" id="1_leo7w"]
 [ext_resource type="PackedScene" uid="uid://beef7lbtilcjy" path="res://gameplay/scale.tscn" id="2_pa65k"]
@@ -8,6 +8,39 @@
 [ext_resource type="Material" uid="uid://fnro653grc1c" path="res://materials/Stove.tres" id="6_xhs4b"]
 [ext_resource type="PackedScene" uid="uid://db6u6bevoliq" path="res://assets/table.fbx" id="7_7nxpd"]
 [ext_resource type="Material" uid="uid://j02yicxubdag" path="res://materials/WoodNChain.tres" id="8_8qif5"]
+[ext_resource type="PackedScene" uid="uid://dpm57sa23giq8" path="res://assets/CampingScale_scenery_v1.blend" id="9_li82v"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nigbq"]
+sky_top_color = Color(0.155767, 0.706589, 0.73758, 1)
+sky_horizon_color = Color(0.868154, 0.688745, 0.128734, 1)
+sky_curve = 0.382368
+sky_energy_multiplier = 2.0
+sky_cover_modulate = Color(0.697029, 0.294666, 0.497238, 1)
+ground_bottom_color = Color(0.126768, 0.258886, 0.110875, 1)
+ground_horizon_color = Color(0.329269, 0.337425, 0.3503, 1)
+ground_energy_multiplier = 2.0
+sun_angle_max = 60.0
+sun_curve = 0.356762
+energy_multiplier = 2.0
+
+[sub_resource type="Sky" id="Sky_8kj3v"]
+sky_material = SubResource("ProceduralSkyMaterial_nigbq")
+
+[sub_resource type="Environment" id="Environment_wfl45"]
+background_mode = 2
+background_color = Color(0.428074, 0.748111, 0.838308, 1)
+sky = SubResource("Sky_8kj3v")
+ambient_light_source = 2
+ambient_light_color = Color(0.572059, 0.886654, 0.986652, 1)
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.341286, 0.85647, 0.914403, 1)
+fog_light_energy = 0.5
+fog_density = 0.5853
+fog_sky_affect = 0.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.02
+volumetric_fog_albedo = Color(0.416718, 0.903752, 0.842945, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_0hr37"]
 font_size = 50
@@ -115,11 +148,11 @@ render_target_update_mode = 4
 [node name="camera" type="Camera3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0483631, 1.36079, 2.46575)
 fov = 82.8
-far = 34.45
+far = 383.02
 
 [node name="light" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(0.307397, -0.914243, 0.263945, 0.0618334, 0.29598, 0.95319, -0.94957, -0.276687, 0.147514, 1.01493, 0.722088, 0)
-light_color = Color(1, 0.870588, 0.862745, 1)
+light_color = Color(0.951206, 0.919918, 0.60933, 1)
 shadow_enabled = true
 shadow_blur = 3.2
 directional_shadow_mode = 1
@@ -130,6 +163,29 @@ scaleNode = NodePath("../Scale")
 
 [node name="Scale" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_pa65k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0470439, 0, 0.100765)
+
+[node name="Skeleton3D" parent="SubViewportContainer/SubViewport/Scale/scale/Armature" index="0"]
+bones/0/rotation = Quaternion(0.707107, 0, 0, 0.707107)
+bones/1/rotation = Quaternion(-0.707107, 0, 0, 0.707107)
+bones/2/rotation = Quaternion(-1.26743e-07, 1.15839e-07, -0.6968, 0.717265)
+bones/3/rotation = Quaternion(6.47048e-09, 2.39324e-07, -0.717265, 0.6968)
+bones/4/rotation = Quaternion(1.75082e-06, -1.54858e-08, 0.999607, 0.0280416)
+bones/5/rotation = Quaternion(1.24068e-06, 1.22146e-06, 0.71664, 0.697444)
+bones/6/rotation = Quaternion(-1.37679e-07, 0.707107, -0.707107, -1.37679e-07)
+bones/7/rotation = Quaternion(-1.37679e-07, 0.707107, -0.707107, -1.37679e-07)
+bones/9/rotation = Quaternion(-2.38177e-08, -8.92895e-09, -0.717265, 0.6968)
+
+[node name="Plane" parent="SubViewportContainer/SubViewport/Scale/scale/Armature/Skeleton3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.00595961)
+
+[node name="Hanger" parent="SubViewportContainer/SubViewport/Scale/scale/Armature/Skeleton3D" index="1"]
+transform = Transform3D(-0.10987, -1.30385e-08, -4.9738e-14, 5.32907e-14, 3.449e-08, -0.10987, 1.30385e-08, -0.10987, -3.449e-08, -3.43396e-05, -3.04683e-05, 0.0256657)
+
+[node name="pan_001" parent="SubViewportContainer/SubViewport/Scale/scale/Armature/Skeleton3D" index="2"]
+transform = Transform3D(1, -1.22213e-12, -3.31552e-07, 8.81073e-13, 1, 9.54969e-12, 4.63799e-07, -2.66495e-11, 1, -0.0100203, 0.000396837, 0.0164336)
+
+[node name="pan" parent="SubViewportContainer/SubViewport/Scale/scale/Armature/Skeleton3D" index="3"]
+transform = Transform3D(1, -1.22213e-12, -3.31552e-07, 8.81073e-13, 1, 9.54969e-12, 4.63799e-07, -2.66495e-11, 1, 0.00916163, 0.000396837, 0.0165423)
 
 [node name="Node3D" type="Node3D" parent="SubViewportContainer/SubViewport"]
 
@@ -152,6 +208,14 @@ surface_material_override/0 = ExtResource("6_xhs4b")
 
 [node name="table" parent="SubViewportContainer/SubViewport/Node3D/table" index="0"]
 material_override = ExtResource("8_8qif5")
+
+[node name="Environment" type="Node3D" parent="SubViewportContainer/SubViewport"]
+
+[node name="CampingScale_scenery_v1" parent="SubViewportContainer/SubViewport/Environment" instance=ExtResource("9_li82v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.66457, 0, 15.7267)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
+environment = SubResource("Environment_wfl45")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 1
@@ -297,6 +361,8 @@ layout_mode = 2
 
 [connection signal="gui_input" from="Control/HelpContainer/Label" to="SubViewportContainer/SubViewport/Node" method="_on_label_gui_input"]
 
+[editable path="SubViewportContainer/SubViewport/Scale"]
+[editable path="SubViewportContainer/SubViewport/Scale/scale"]
 [editable path="SubViewportContainer/SubViewport/Node3D/knob"]
 [editable path="SubViewportContainer/SubViewport/Node3D/stove"]
 [editable path="SubViewportContainer/SubViewport/Node3D/table"]
