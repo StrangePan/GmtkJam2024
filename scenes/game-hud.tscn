@@ -1,33 +1,112 @@
-[gd_scene load_steps=2 format=3 uid="uid://ceio5bnc2x0g"]
+[gd_scene load_steps=5 format=3 uid="uid://ceio5bnc2x0g"]
 
 [sub_resource type="GDScript" id="GDScript_xwl8u"]
 script/source = "extends Control
 
 
 @export var scaleNode: Scale
-@onready var leftButton := $HBoxContainer/AddLeftContainer/AddLeftButton
-@onready var rightButton := $HBoxContainer/AddRightContainer/AddRightButton
+@export var seconds: int = 60
+@onready var _scoreLabel := $GameHudContainer/HBoxContainer2/PoppedLabel
+@onready var _burnedLabel := $GameHudContainer/HBoxContainer2/BurnedLabel
+@onready var _countdownLabel := $GameHudContainer/Countdown
+@onready var _gameHudContainer := $GameHudContainer
+@onready var _scoreContainer := $ScoreContainer
+@onready var _poppedResultLabel := $ScoreContainer/HBoxContainer/PoppedResultLabel
+@onready var _wastedResultLabel := $ScoreContainer/HBoxContainer2/WastedResultsLabel
+
+var _popped: int = 0
+var _burned: int = 0
+var _secondsElapsed: float = 0
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	_update_score()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
+func _process(delta: float) -> void:
+	if gameIsRunning():
+		_secondsElapsed += delta
+		if _secondsElapsed < seconds:
+			_update_countdown()
+		else:
+			showScore()
+
+
+func gameIsRunning() -> bool:
+	return _gameHudContainer.visible
 
 
 func _on_add_left_button_pressed() -> void:
-	if (scaleNode):
-		scaleNode.spawnLeftKernel()
+	spawnKernel(Scale.Side.Left)
 
 
 func _on_add_right_button_pressed() -> void:
-	if (scaleNode):
-		scaleNode.spawnRightKernel()
+	spawnKernel(Scale.Side.Right)
+
+
+func spawnKernel(side: Scale.Side) -> void:
+	if (!scaleNode):
+		return
+	var kernel := scaleNode.spawnKernel(side)
+	kernel.kernel_popped.connect(_on_kernel_popped)
+	kernel.kernel_burned.connect(_on_kernel_burned)
+
+
+func _on_kernel_popped() -> void:
+	if (!gameIsRunning()):
+		return
+	_popped += 1
+	_update_score()
+
+
+func _on_kernel_burned() -> void:
+	if (!gameIsRunning()):
+		return
+	_burned += 1
+	_update_score()
+
+
+func _update_score() -> void:
+	_scoreLabel.text = str(_popped)
+	_burnedLabel.text = str(_burned)
+
+
+func _update_countdown() -> void:
+	_countdownLabel.text = str(int(ceil(seconds - _secondsElapsed)))
+
+
+func showScore() -> void:
+	_gameHudContainer.visible = false
+	_scoreContainer.visible = true
+	_poppedResultLabel.text = str(_popped)
+	_wastedResultLabel.text = str(_burned)
+
+
+func _on_play_again_button_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://scenes/game.tscn\")
+
+
+func _on_main_menu_button_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://scenes/main-menu.tscn\")
+
+
+func _input(input: InputEvent) -> void:
+	if input.is_action_pressed(\"ui_cancel\"):
+		get_tree().change_scene_to_file(\"res://scenes/main-menu.tscn\")
 "
+
+[sub_resource type="LabelSettings" id="LabelSettings_xpt81"]
+font_size = 50
+shadow_size = 16
+shadow_color = Color(0, 0, 0, 0.501961)
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ggqkw"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_l7hd3"]
+font_size = 30
+shadow_color = Color(0, 0, 0, 0.501961)
+shadow_offset = Vector2(4, 4)
 
 [node name="GameHud" type="Control"]
 layout_mode = 3
@@ -38,7 +117,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = SubResource("GDScript_xwl8u")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="GameHudContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -46,23 +125,154 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="AddLeftContainer" type="CenterContainer" parent="HBoxContainer"]
+[node name="Control" type="Control" parent="GameHudContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="GameHudContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="GameHudContainer/HBoxContainer2"]
+layout_mode = 2
+text = "POPPED: "
+label_settings = SubResource("LabelSettings_xpt81")
+horizontal_alignment = 1
+
+[node name="PoppedLabel" type="Label" parent="GameHudContainer/HBoxContainer2"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_xpt81")
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="GameHudContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="GameHudContainer/HBoxContainer2"]
+layout_mode = 2
+text = "BURNED: "
+label_settings = SubResource("LabelSettings_xpt81")
+horizontal_alignment = 1
+
+[node name="BurnedLabel" type="Label" parent="GameHudContainer/HBoxContainer2"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_xpt81")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameHudContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="AddLeftButton" type="Button" parent="GameHudContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="AddLeftButton" type="Button" parent="HBoxContainer/AddLeftContainer"]
-layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ggqkw")
 action_mode = 0
-text = "ADD POPCORN"
+text = "ADD POPCORN
+TO LEFT"
+flat = true
+alignment = 0
 
-[node name="AddRightContainer" type="CenterContainer" parent="HBoxContainer"]
+[node name="AddRightButton" type="Button" parent="GameHudContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="AddRightButton" type="Button" parent="HBoxContainer/AddRightContainer"]
-layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ggqkw")
 action_mode = 0
-text = "ADD POPCORN"
+text = "ADD POPCORN
+TO RIGHT"
+flat = true
+alignment = 2
 
-[connection signal="pressed" from="HBoxContainer/AddLeftContainer/AddLeftButton" to="." method="_on_add_left_button_pressed"]
-[connection signal="pressed" from="HBoxContainer/AddRightContainer/AddRightButton" to="." method="_on_add_right_button_pressed"]
+[node name="Countdown" type="Label" parent="GameHudContainer"]
+layout_mode = 2
+text = "120"
+label_settings = SubResource("LabelSettings_xpt81")
+horizontal_alignment = 1
+
+[node name="Control2" type="Control" parent="GameHudContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="ScoreContainer" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control2" type="Control" parent="ScoreContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScoreContainer"]
+layout_mode = 2
+text = "TIME'S UP!"
+label_settings = SubResource("LabelSettings_xpt81")
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="ScoreContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScoreContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label2" type="Label" parent="ScoreContainer/HBoxContainer"]
+layout_mode = 2
+text = "Popcorn popped:"
+label_settings = SubResource("LabelSettings_l7hd3")
+
+[node name="PoppedResultLabel" type="Label" parent="ScoreContainer/HBoxContainer"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_l7hd3")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ScoreContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label2" type="Label" parent="ScoreContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Popcorn burned:"
+label_settings = SubResource("LabelSettings_l7hd3")
+
+[node name="WastedResultsLabel" type="Label" parent="ScoreContainer/HBoxContainer2"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_l7hd3")
+
+[node name="Control3" type="Control" parent="ScoreContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="ScoreContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="PlayAgainButton" type="Button" parent="ScoreContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Play Again!"
+
+[node name="Control" type="Control" parent="ScoreContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="MainMenuButton" type="Button" parent="ScoreContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Main Menu"
+
+[node name="Control4" type="Control" parent="ScoreContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[connection signal="pressed" from="GameHudContainer/HBoxContainer/AddLeftButton" to="." method="_on_add_left_button_pressed"]
+[connection signal="pressed" from="GameHudContainer/HBoxContainer/AddRightButton" to="." method="_on_add_right_button_pressed"]
+[connection signal="pressed" from="ScoreContainer/HBoxContainer3/PlayAgainButton" to="." method="_on_play_again_button_pressed"]
+[connection signal="pressed" from="ScoreContainer/HBoxContainer3/MainMenuButton" to="." method="_on_main_menu_button_pressed"]

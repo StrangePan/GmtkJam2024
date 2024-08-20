@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvwbfuf2jf2lh"]
+
+[sub_resource type="GDScript" id="GDScript_vqbor"]
+script/source = "extends RigidBody3D
+
+
+func _on_timer_timeout() -> void:
+	queue_free()
+"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tl36n"]
+radius = 0.1
+
+[node name="RigidBody3D" type="RigidBody3D"]
+collision_layer = 8
+collision_mask = 0
+axis_lock_linear_z = true
+mass = 0.5
+script = SubResource("GDScript_vqbor")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+radius = 0.1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_tl36n")
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 5.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

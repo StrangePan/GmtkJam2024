@@ -11,6 +11,13 @@ extends Node3D
 @export_range(-1, 1, 0.001, "the amount of tilt on the scale") var tilt: float = 0: set = set_tilt
 
 
+enum Side
+{
+	Left,
+	Right,
+}
+
+
 func set_tilt(value: float) -> void:
 	tilt = value
 	if (animation):
@@ -22,21 +29,22 @@ func _ready() -> void:
 	animation.play("tilt-scales", -1, 0)
 
 
-func spawnLeftKernel() -> void:
+func _getPan(side: Scale.Side) -> Pan:
+	if (side == Side.Left):
+		return _leftPan
+	if (side == Side.Right):
+		return _rightPan
+	else:
+		push_error("Invalid side: " + str(side))
+		return null
+
+
+func spawnKernel(side: Scale.Side) -> Kernel:
 	var kernel := _kernelScene.instantiate()
 	add_child(kernel)
-	kernel.initialize(_leftPan.kernelSpawn.global_position)
+	kernel.initialize(_getPan(side).kernelSpawn.global_position, self, side)
+	return kernel
 
 
-func spawnRightKernel() -> void:
-	var kernel := _kernelScene.instantiate()
-	add_child(kernel)
-	kernel.initialize(_rightPan.kernelSpawn.global_position)
-
-
-func countLeftKernels() -> int:
-	return _leftPan.kernelArea.get_overlapping_bodies().size()
-
-
-func countRightKernels() -> int:
-	return _rightPan.kernelArea.get_overlapping_bodies().size()
+func countKernels(side: Scale.Side) -> int:
+	return _getPan(side).kernelArea.get_overlapping_bodies().size()
