@@ -12,6 +12,7 @@ config_version=5
 
 config/name="Popped to Scale"
 config/description="A small game about cooking popcorn over an open fire. Made using Godot 4.3 for the GMTK Game Jam 2024 by Lucas Leme and Dan Andrus."
+config/version="0.2"
 run/main_scene="res://scenes/main-menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
