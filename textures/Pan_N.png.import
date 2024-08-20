@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://d1keu7rs6xk4y"
 path.s3tc="res://.godot/imported/Pan_N.png-d011c272951c16b123d10bf794659f84.s3tc.ctex"
+path.etc2="res://.godot/imported/Pan_N.png-d011c272951c16b123d10bf794659f84.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://textures/Pan_N.png"
-dest_files=["res://.godot/imported/Pan_N.png-d011c272951c16b123d10bf794659f84.s3tc.ctex"]
+dest_files=["res://.godot/imported/Pan_N.png-d011c272951c16b123d10bf794659f84.s3tc.ctex", "res://.godot/imported/Pan_N.png-d011c272951c16b123d10bf794659f84.etc2.ctex"]
 
 [params]
 

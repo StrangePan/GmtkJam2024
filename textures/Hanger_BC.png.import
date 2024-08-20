@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bnmqw254i1wtu"
 path.s3tc="res://.godot/imported/Hanger_BC.png-6a2308a908851ad586a0e944af229222.s3tc.ctex"
+path.etc2="res://.godot/imported/Hanger_BC.png-6a2308a908851ad586a0e944af229222.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://textures/Hanger_BC.png"
-dest_files=["res://.godot/imported/Hanger_BC.png-6a2308a908851ad586a0e944af229222.s3tc.ctex"]
+dest_files=["res://.godot/imported/Hanger_BC.png-6a2308a908851ad586a0e944af229222.s3tc.ctex", "res://.godot/imported/Hanger_BC.png-6a2308a908851ad586a0e944af229222.etc2.ctex"]
 
 [params]
 

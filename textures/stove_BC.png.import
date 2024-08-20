@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://clje1d4ddm241"
 path.s3tc="res://.godot/imported/stove_BC.png-2e8795832d35fedae31d10684e915775.s3tc.ctex"
+path.etc2="res://.godot/imported/stove_BC.png-2e8795832d35fedae31d10684e915775.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://textures/stove_BC.png"
-dest_files=["res://.godot/imported/stove_BC.png-2e8795832d35fedae31d10684e915775.s3tc.ctex"]
+dest_files=["res://.godot/imported/stove_BC.png-2e8795832d35fedae31d10684e915775.s3tc.ctex", "res://.godot/imported/stove_BC.png-2e8795832d35fedae31d10684e915775.etc2.ctex"]
 
 [params]
 

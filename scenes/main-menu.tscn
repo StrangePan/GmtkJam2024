@@ -264,10 +264,11 @@ size_flags_vertical = 3
 [node name="Label" type="Label" parent="Control/HelpContainer"]
 layout_mode = 2
 text = "You are camping in the forest, but forgot to bring food!
-All you have is popcorn kernels, portable stoves, and your wits!
+All you have are popcorn kernels, portable stoves, and your wits!
 
 Balance the scales to cook your popcorn kernels until they pop.
 Don't let them get too close to the stoves or else they will burn!
+And be careful, because it's windy out today.
 You have 60 seconds to make as much popcorn as possible.
 
 Good luck!"
